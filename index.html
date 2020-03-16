@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <title>Test</title>
+</head>
+<body>
+    <div id="app">
+        <div v-for="r in result">
+            <p>{{ r.name.first + ' ' + r.name.last }}</p>
+            <p>{{ r.jobTitle }}</p>
+            <p><img :src="r.photoURL"></p>
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    result: []
+                }
+            },
+            methods: {
+                get() {
+                    window.axios.get('https://127.0.0.1:8080/?url=https://emplistapi-258220.appspot.com/').then((response) => {
+                        this.result = response.data;
+                    })
+                }
+            },
+            created() {
+                this.get();
+            }
+        });
+    </script>
+</body>
+</html>
